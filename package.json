@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "bot.js",
-  "scripts": {
+  "scripts": { 
+    "start": "node api.js",
     "test": "jest"
   },
   "keywords": [],
@@ -11,5 +12,8 @@
   "license": "ISC",
   "devDependencies": {
     "jest": "^30.2.0"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
   }
 }
