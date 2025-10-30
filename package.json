@@ -2,7 +2,7 @@
   "name": "proyectodespliegue",
   "version": "1.0.0",
   "description": "",
-  "main": "bot.js",
+  "main": "api.js",
   "scripts": { 
     "start": "node api.js",
     "test": "jest"
