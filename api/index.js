@@ -1,6 +1,6 @@
 const { romanToInt } = require('../romanConverter');
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   const { roman } = req.query;
 
   if (!roman) {
@@ -13,4 +13,4 @@ module.exports = async (req, res) => {
   } catch (err) {
     res.status(400).send({ error: err.message });
   }
-};
+}
