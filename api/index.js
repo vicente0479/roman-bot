@@ -1,5 +1,5 @@
 const express = require('express');
-const { romanToInt } = require('./romanConverter');
+const { romanToInt } = require('../romanConverter.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
