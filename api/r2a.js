@@ -1,27 +1,28 @@
-const cors = require("cors");
+export default function handler(req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
 
-module.exports = (req, res) => {
-  cors()(req, res, () => {
-    const { roman } = req.query;
+  if (req.method === "OPTIONS") return res.status(200).end();
 
-    // Validación
-    if (!roman || !/^[IVXLCDM]+$/i.test(roman)) {
-      return res.status(400).json({ error: "Parámetro inválido" });
-    }
+  const { roman } = req.query;
 
-    const map = { I:1, V:5, X:10, L:50, C:100, D:500, M:1000 };
-    const chars = roman.toUpperCase().split("");
+  if (!roman || !/^[IVXLCDM]+$/i.test(roman)) {
+    return res.status(400).json({ error: "Parámetro inválido" });
+  }
 
-    let total = 0;
-    for (let i = 0; i < chars.length; i++) {
-      const curr = map[chars[i]];
-      const next = map[chars[i + 1]] || 0;
+  const map = { I:1, V:5, X:10, L:50, C:100, D:500, M:1000 };
+  const chars = roman.toUpperCase().split("");
 
-      total += curr < next ? next - curr : curr;
+  let total = 0;
 
-      if (curr < next) i++;
-    }
+  for (let i = 0; i < chars.length; i++) {
+    const current = map[chars[i]];
+    const next = map[chars[i+1]] || 0;
 
-    return res.status(200).json({ arabic: total });
-  });
-};
+    total += current < next ? next - current : current;
+
+    if (current < next) i++;
+  }
+
+  res.status(200).json({ arabic: total });
+}
