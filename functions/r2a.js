@@ -6,7 +6,9 @@ export default function r2a(req, res) {
 
   const { roman } = req.query;
 
-  if (!roman || !/^[IVXLCDM]+$/i.test(roman)) {
+  const canonicalRomanRegex = /^(?=.*[IVXLCDM])(M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/i;
+
+  if (!roman || !canonicalRomanRegex.test(roman)) {
     return res.status(400).json({ error: "Parámetro inválido" });
   }
 
@@ -19,9 +21,14 @@ export default function r2a(req, res) {
     const current = map[chars[i]];
     const next = map[chars[i+1]] || 0;
 
+    
     total += current < next ? next - current : current;
 
     if (current < next) i++;
+  }
+
+  if (total <= 0) {
+      return res.status(400).json({ error: "Parámetro inválido" });
   }
 
   res.status(200).json({ arabic: total });

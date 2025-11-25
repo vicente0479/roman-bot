@@ -5,9 +5,16 @@ export default function a2r(req, res) {
   if (req.method === "OPTIONS") return res.status(200).end();
 
   const { arabic } = req.query;
-  const num = parseInt(arabic);
 
-  if (!arabic || isNaN(num) || num <= 0) {
+ 
+  if (!arabic || !/^\d+$/.test(arabic)) {
+    return res.status(400).json({ error: "Parámetro inválido" });
+  }
+
+  const num = parseInt(arabic, 10);
+
+ 
+  if (num <= 0 || num > 3999) {
     return res.status(400).json({ error: "Parámetro inválido" });
   }
 
