@@ -2,6 +2,7 @@
   "name": "tateti-random",
   "version": "1.0.0",
   "main": "tateti-random.js",
+  "type": "module",
   "scripts": {
     "start": "node tateti-random.js",
     "test": "jest"
